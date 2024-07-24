@@ -115,6 +115,7 @@ app.get("/socialmedia" , (req , res) => {
     })
 })
 
+// Display Your OtherAccounts Data
 app.get("/other" , (req , res) => {
 
     const sql_query = `SELECT * FROM otheracc`;
@@ -126,6 +127,7 @@ app.get("/other" , (req , res) => {
     })
 })
 
+// Update Your GmailAccountData's - Password
 app.put("/updategmail/password" , jsonParser , (req , res) => {
     const sno = req.body.sno;
     const newPassword = req.body.newPassword;
@@ -142,11 +144,80 @@ app.put("/updategmail/password" , jsonParser , (req , res) => {
     })
 })
 
+// Update Your GmailAccountData's - Account'sName
 app.put("/updategmail/accountname" , jsonParser , (req , res) => {
     const sno = req.body.sno;
     const newName = req.body.newName;
 
     sql_query = `UPDATE gmailacc SET Gmail_Account=? WHERE Sno=?`;
+    values = [newName , sno]
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) console.log(`${err}`);
+
+        res.json({
+            msg: "AccountName is being Updated!!"
+        })
+    })
+})
+
+// Update Your SocialMediaAccountData's - Password
+app.put("/updatesocialmedia/password" , jsonParser , (req , res) => {
+    const sno = req.body.sno;
+    const newPassword = req.body.newPassword;
+
+    sql_query = `UPDATE socialmediaacc SET Password=? WHERE Sno=?`;
+    values = [newPassword , sno]
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) console.log(`${err}`);
+
+        res.json({
+            msg: "Password is being Updated!!"
+        })
+    })
+})
+
+// Update Your SocialMediaAccountData's - Account'sName
+app.put("/updatesocialmedia/accountname" , jsonParser , (req , res) => {
+    const sno = req.body.sno;
+    const newName = req.body.newName;
+
+    sql_query = `UPDATE socialmediaacc SET Social_Account=? WHERE Sno=?`;
+    values = [newName , sno]
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) console.log(`${err}`);
+
+        res.json({
+            msg: "AccountName is being Updated!!"
+        })
+    })
+})
+
+// Update Your OtherAccountData's - Password
+app.put("/updateother/password" , jsonParser , (req , res) => {
+    const sno = req.body.sno;
+    const newPassword = req.body.newPassword;
+
+    sql_query = `UPDATE otheracc SET Password=? WHERE Sno=?`;
+    values = [newPassword , sno]
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) console.log(`${err}`);
+
+        res.json({
+            msg: "Password is being Updated!!"
+        })
+    })
+})
+
+// Update Your OtherAccountData's - Account'sName
+app.put("/updateother/accountname" , jsonParser , (req , res) => {
+    const sno = req.body.sno;
+    const newName = req.body.newName;
+
+    sql_query = `UPDATE otheracc SET Account_Name=? WHERE Sno=?`;
     values = [newName , sno]
 
     mysqlConnectionObject.query(sql_query , values , (err , result) => {
