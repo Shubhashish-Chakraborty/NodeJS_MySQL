@@ -37,6 +37,7 @@ app.get('/', (req, res) => { // HomeRoute!!
         `);
 });
 
+// Add GmailAccount:
 app.post("/addgmail" , jsonParser , (req , res) => {
     const DataObject = req.body;
 
@@ -49,14 +50,74 @@ app.post("/addgmail" , jsonParser , (req , res) => {
         }
 
         res.json({
-            msg:`Data Added Successfully: ${result.insertId}`
+            msg:`Gmail Account Data Added Successfully: ${result.insertId}`
         })
     })
 })
 
+// Add SocialMediaAccount:
+app.post("/addsocialmedia" , jsonParser , (req , res) => {
+    const DataObject = req.body;
+
+    const sql_query = `INSERT INTO socialmediaacc (Sno , Social_Account , Password , Extra_info) VALUES (?,?,?,?)`
+    const values = [DataObject.Sno , DataObject.Account_Name , DataObject.Password , DataObject.Extra_info];
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) {
+            console.log(`${err}`);
+        }
+
+        res.json({
+            msg:`Instagram Account Data Added Successfully: ${result.insertId}`
+        })
+    })
+})
+
+// Add OtherAccount
+app.post("/addother" , jsonParser , (req , res) => {
+    const DataObject = req.body;
+
+    const sql_query = `INSERT INTO otheracc (Sno , Account_Name , Password , Extra_info) VALUES (?,?,?,?)`
+    const values = [DataObject.Sno , DataObject.Account_Name , DataObject.Password , DataObject.Extra_info];
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) {
+            console.log(`${err}`);
+        }
+
+        res.json({
+            msg:`Other Account Data Added Successfully: ${result.insertId}`
+        })
+    })
+})
+
+// Display Your GmailAccounts Data
 app.get("/gmail" , (req , res) => {
 
     const sql_query = `SELECT * FROM gmailacc`;
+
+    mysqlConnectionObject.query(sql_query , (err , DATA , fields) => {
+        if (err) console.log(`${err}`);
+
+        res.json(DATA)
+    })
+})
+
+// Display Your SocialmediaAccounts Data
+app.get("/socialmedia" , (req , res) => {
+
+    const sql_query = `SELECT * FROM socialmediaacc`;
+
+    mysqlConnectionObject.query(sql_query , (err , DATA , fields) => {
+        if (err) console.log(`${err}`);
+
+        res.json(DATA)
+    })
+})
+
+app.get("/other" , (req , res) => {
+
+    const sql_query = `SELECT * FROM otheracc`;
 
     mysqlConnectionObject.query(sql_query , (err , DATA , fields) => {
         if (err) console.log(`${err}`);
