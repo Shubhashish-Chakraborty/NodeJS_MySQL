@@ -229,6 +229,56 @@ app.put("/updateother/accountname" , jsonParser , (req , res) => {
     })
 })
 
+
+app.delete("/deletegmail" , (req , res) => {
+    const sno = req.headers.sno; // Catching the Sno from the Headers!!!!!
+
+    sql_query = `DELETE FROM gmailacc WHERE Sno=?`;
+    values = [sno];
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) console.log(`${err}`);
+
+        res.json({
+            msg: "Data is Being Removed!!!"
+        })
+    })
+
+})
+
+app.delete("/deletesocialmedia" , (req , res) => {
+    const sno = req.headers.sno; // Catching the Sno from the Headers!!!!!
+
+    sql_query = `DELETE FROM socialmediaacc WHERE Sno=?`;
+    values = [sno];
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) console.log(`${err}`);
+
+        res.json({
+            msg: "Data is Being Removed!!!"
+        })
+    })
+
+})
+
+app.delete("/deleteother" , (req , res) => {
+    const sno = req.headers.sno; // Catching the Sno from the Headers!!!!!
+
+    sql_query = `DELETE FROM otheracc WHERE Sno=?`;
+    values = [sno];
+
+    mysqlConnectionObject.query(sql_query , values , (err , result) => {
+        if (err) console.log(`${err}`);
+
+        res.json({
+            msg: "Data is Being Removed!!!"
+        })
+    })
+
+})
+
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
